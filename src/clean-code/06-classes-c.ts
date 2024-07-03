@@ -26,21 +26,18 @@
     interface UserPropierties {
         email: string;
         role: string;
-        birthdate : Date;
-        gender : Gender;
-        name : string;
     }
 
 
-    class User extends Person{
+    class User{
         public email: string;
         public lastAccess: Date;
         public role: string;
 
-        constructor({email,role,birthdate,gender,name}:UserPropierties){
-            super({birthdate, gender, name})
-            this. email = email,
+        constructor({email,role}:UserPropierties){
+            
             this.lastAccess = new Date(),
+            this. email = email,
             this.role = role
         }
 
@@ -48,6 +45,30 @@
             return true;
         }
     }
+
+    interface SettingsPropierties {
+        workingDirectory : string;
+        lastOpenFolder   : string;
+        }
+    class Settings {
+        public workingDirectory : string;
+        public lastOpenFolder   : string;
+        constructor
+        ({  
+            workingDirectory,
+            lastOpenFolder,
+        }: SettingsPropierties){
+            this.workingDirectory = workingDirectory,
+            this.lastOpenFolder = lastOpenFolder
+        }
+    }
+
+    
+    const settings = new Settings({
+        lastOpenFolder: '/home',
+        workingDirectory: '/usr/home',
+    });
+    console.log({ settings });
 
     interface UserSettingsPropierties {
         email: string;
@@ -59,12 +80,13 @@
         lastOpenFolder   : string;
     }
 
+    //coposición que vincula las 3 clases anteriores
+    class UserSettings{
+        public person       : Person;
+        public user         : User;
+        public settings     : Settings;
 
-    class UserSettings extends User{
-        public workingDirectory : string;
-        public lastOpenFolder   : string;
-        constructor
-        ({
+        constructor({
             email,
             role,
             name,
@@ -73,13 +95,15 @@
             workingDirectory,
             lastOpenFolder,
 
-        }: UserSettingsPropierties){
-            super({email,role, name, gender, birthdate})
-            this.workingDirectory = workingDirectory,
-            this.lastOpenFolder = lastOpenFolder
+        }: UserSettingsPropierties)
+        {
+            this.person = new Person({birthdate,gender,name});
+            this.user = new User({email,role});
+            this.settings = new Settings({lastOpenFolder,workingDirectory})
+
         }
     }
-
+    
     const userSettings = new UserSettings({
         birthdate: new Date('1985-10-21'),
         email: 'fernando@google.com',
@@ -90,6 +114,9 @@
         workingDirectory: '/usr/home',
     });
 
-    console.log({ userSettings });
+    console.log(userSettings.person);
+
+
+    
 
 })();
