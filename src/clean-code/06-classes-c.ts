@@ -1,19 +1,9 @@
 (()=>{
+    //Aplicando el principio de responsabilidad única
+    //Priorizar la composición frente a la herencia 
+
     type Gender = 'M'|'F'
-    //forma larga de hacer una clase
-    /* class Person {
-        public name : string;
-        public gender : Gender;
-        public birthdate : Date;
-
-        constructor(name:string, gender:Gender, birthdate:Date){
-            this.name = name;
-            this.gender = gender;
-            this.birthdate = birthdate;
-        }
-    } */
-    //forma corta de hacer una clase
-
+    
     interface PersonPropierties {
         birthdate : Date;
         gender : Gender;
