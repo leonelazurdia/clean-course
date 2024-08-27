@@ -1,6 +1,7 @@
 import './style.css'
 //import './clean-smells/02-low-coupling.ts';
-import './solid/01-srp';
+//import './solid/01-srp';
+import './solid/02-open-close-a'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
